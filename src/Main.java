@@ -22,5 +22,35 @@ public class Main {
         printSortBooks(SHELF, countBooksPerShelf, sortBooks(listBook));
     }
 
+    private static void printSortBooks(Integer SHELF, int countBooksPerShelf, String[][] sortBooks) {
+        for (int i = 0; i < SHELF; i++) {
+            for (int j = 0; j < countBooksPerShelf + 1; j++) {
+                System.out.print(sortBooks[i][j] + "|");
+            }
+            System.out.println(" " + "\n");
+        }
+        System.out.println();
+    }
+
+    private static String[][] sortBooks(List<String> listBook) {
+        List<String> sortedList = listBook.stream().sorted().collect(Collectors.toList());
+
+        int countBooksPerShelf = (int) Math.ceil((double) sortedList.size() / SHELF);
+
+        String[][] shelfWithBook = new String[SHELF][countBooksPerShelf];
+        int j = 0;
+        int i = 0;
+        for (String s : sortedList) {
+            shelfWithBook[i][j] = s;
+            j++;
+            if (j == countBooksPerShelf) {
+                i++;
+                j = 0;
+            }
+
+        }
+        return shelfWithBook;
+
+    }
 
 }
